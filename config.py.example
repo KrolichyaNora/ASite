@@ -1,5 +1,0 @@
-DBHOST="localhost"
-DBPORT=5432
-DBNAME="restaurant"
-DBUSER="restaurant"
-DBPASS="superpass"

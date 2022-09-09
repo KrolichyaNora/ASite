@@ -1,2 +1,4 @@
-/config.py
+/restaurant/migrations/*
+!/restaurant/migrations/__init__.py
+/restaurant/config.py
 __pycache__

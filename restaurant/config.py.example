@@ -1,0 +1,9 @@
+# DB settings
+DBNAME="restaurant"
+DBADDR="localhost"
+DBPORT="5432"
+USER="restaurant"
+PASS="mypass"
+
+# Address to allow connections to
+HOSTNAME="restaurant.ru"
