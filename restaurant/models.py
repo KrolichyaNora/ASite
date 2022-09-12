@@ -5,8 +5,8 @@ class Role(models.Model):
 
 class User(models.Model):
     login = models.CharField(max_length=32)
-    password_sha256 = models.CharField(max_length=64)
+    password = models.CharField(max_length=64)
     role = models.ForeignKey(Role, on_delete=models.CASCADE, default='1')
 
     def __str__(self):
-        return f"({self.role}) {self.login}: {self.password_sha256}"
+        return f"({self.role}) {self.login}: {self.password}"
