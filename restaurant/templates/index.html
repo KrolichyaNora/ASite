@@ -47,59 +47,31 @@
           </nav>
     </header>
     <!-- Sign In Modal-->
-    <div class="modal fade" id = "SignInModal" tabindex="-1" aria-labelledby="#SignInModalLabel" aria-hidden="true">
+    <div class="modal fade" id="SignInModal" tabindex="-1" aria-labelledby="#SignInModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="SignInModalLabel">Form</h5>
-                    <button class="btn-close" data-bs-dismiss="modal" aria-label="close" ></button>
+                    <h5 class="modal-title" id="SignInModalLabel">Sign in</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
                     <form onsubmit="event.preventDefault(); auth(event.target);">
                         {% csrf_token %}
                         <div class="row mb-3">
-                                <label for="inputEmail" class="col-sm-2-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="login" id="login">
-                                </div>
+                            <label for="login" class="col-sm-2-form-label">Login</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="login" id="login">
+                            </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputPass" class="col-sm-2-form-label">Password</label>
+                            <label for="password" class="col-sm-2-form-label">Password</label>
                             <div class="col-sm-10">
                                 <input type="password" class="form-control" name="password" id="password">
                             </div>
                         </div>
-                        <fieldset>
-                            <div class="row mb-3">
-                                <legend class="col-form-label col-sm-2">Radio</legend>
-                                <div class="coll-sm-10">
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" name="radios" value="option1" id="radios1" checked>
-                                        <label for="" class="form-check-label ">Radio 1</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" name="radios" value="option2" id="radios2" >
-                                        <label for="" class="form-check-label">Radio 2</label>
-                                    </div>
-                                    <div class="form-check disabled">
-                                        <input type="radio" class="form-check-input" name="radios" value="option1" id="radios3" disabled >
-                                        <label for="" class="form-check-label">For my lovely admin</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-form-label col-sm-2">Checkbox</div>
-                                <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input type="checkbox" id="gridCheck" class="form-check-input">
-                                        <label for="gridCheck" class="form-check-label mt-2">Save password</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-secondary">Save changes</button>
+                            <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Sign in</button>
                         </div>
                     </form>
                 </div>
@@ -107,65 +79,37 @@
         </div>
     </div>
      <!-- Sign Up Modal-->
-     <div class="modal fade" id = "SignUpModal" tabindex="-1" aria-labelledby="#SignUpModalLabel" aria-hidden="true">
+     <div class="modal fade" id="SignUpModal" tabindex="-1" aria-labelledby="#SignUpModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="SignUpModalLabel">Form</h5>
-                    <button class="btn-close" data-bs-dismiss="modal" aria-label="close" ></button>
+                    <h5 class="modal-title" id="SignUpModalLabel">Sign up</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
                     <form onsubmit="event.preventDefault(); reg(event.target);">
                         {% csrf_token %}
                         <div class="row mb-3">
-                                <label for="inputEmail" class="col-sm-2-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="login" id="login">
-                                </div>
+                            <label for="login" class="col-sm-2-form-label">Login</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="login" id="login">
+                            </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputPass" class="col-sm-2-form-label">Password</label>
+                            <label for="password" class="col-sm-2-form-label">Password</label>
                             <div class="col-sm-10">
                                 <input type="password" class="form-control" name="password" id="password">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputPassRepeat" class="col-sm-2-form-label">Repeat password</label>
+                            <label for="password2" class="col-sm-2-form-label">Repeat password</label>
                             <div class="col-sm-10">
-                                <input type="passwordRepeat" class="form-control" id="inputPassRepeat">
+                                <input type="password" class="form-control" name="password2" id="password2">
                             </div>
                         </div>
-                        <fieldset>
-                            <div class="row mb-3">
-                                <legend class="col-form-label col-sm-2">Radio</legend>
-                                <div class="coll-sm-10">
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" name="radios" value="option1" id="radios1" checked>
-                                        <label for="" class="form-check-label">Radio 1</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" name="radios" value="option2" id="radios2" >
-                                        <label for="" class="form-check-label">Radio 2</label>
-                                    </div>
-                                    <div class="form-check disabled">
-                                        <input type="radio" class="form-check-input" name="radios" value="option1" id="radios3" disabled >
-                                        <label for="" class="form-check-label">For my lovely admin</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-form-label col-sm-2">Checkbox</div>
-                                <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input type="checkbox" id="gridCheck" class="form-check-input">
-                                        <label for="gridCheck" class="form-check-label mt-2">Save password</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-secondary">Save changes</button>
+                            <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Sign up</button>
                         </div>
                     </form>
                 </div>

@@ -14,6 +14,10 @@ const auth = (form) => {
 
 const reg = (form) => {
     let form_data = new FormData(form)
+    if (form_data.get('password') != form_data.get('password2')) {
+        alert("passwords doesn't match")
+        return
+    }
     fetch('/register',{
         method: 'POST',
         body: form_data,
