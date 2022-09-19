@@ -3,10 +3,9 @@ from django.http import JsonResponse
 from .models import User
 
 def index(request):
-    return render(request, 'index.html')  
+    return render(request, 'login.html')
 
 def login(request):
-    print(request.POST)
     if request.POST:
         login = request.POST["login"]
         # TODO: Add salt to hash. Now it's only a bit better than cleartext.
@@ -21,7 +20,7 @@ def login(request):
         resp.set_cookie('token', login, max_age=86400)
         return resp
     else:
-        return render(request, 'index.html')
+        return render(request, 'login.html')
 
 def register(request):
     if request.POST:
@@ -33,15 +32,16 @@ def register(request):
             found = True
         if found:
             return JsonResponse({"status":"err", "id":-1},status=403)
-        newuser = User.objects.create(
+            newuser = User.objects.create(
             login=login,
             password=password
         )
         resp = JsonResponse({"status": "ok", "login":login,"password":password,"id":newuser.id})
         resp.set_cookie('token', login, max_age=86400)
+
         return resp
     else:
-        return render(request, 'index.html')
+        return render(request, 'login.html')
 
 def logout(request):
     resp = redirect("/")
@@ -49,3 +49,4 @@ def logout(request):
     if not token is None:
         resp.delete_cookie("token")
     return resp
+

@@ -9,4 +9,4 @@ class User(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE, default='1')
 
     def __str__(self):
-        return f"({self.role}) {self.login}: {self.password}"
+        return f"({self.id} {self.role} {self.login}: {self.password}"

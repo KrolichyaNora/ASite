@@ -1,5 +1,5 @@
 /restaurant/migrations/*
 !/restaurant/migrations/__init__.py
-/restaurant/config.py.example
+/restaurant/config.py
 __pycache__
 venv
