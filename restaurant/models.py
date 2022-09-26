@@ -10,7 +10,7 @@ class Role(models.Model):
 
 class User(models.Model):
     login = models.CharField(max_length=32)
-    password = models.CharField(max_length=64)
+    password = models.CharField(max_length=100)
     role = models.ForeignKey(Role, on_delete=models.CASCADE, default='1')
 
     def __str__(self):

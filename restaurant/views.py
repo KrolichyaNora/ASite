@@ -3,6 +3,9 @@ from django.http import JsonResponse
 from .models import User
 
 import json
+import os
+
+from hashlib import sha256
 
 def index(request):
     return render(request, 'index.html')  
@@ -15,16 +18,20 @@ def login(request):
             return JsonResponse({"status":"err"},status=400)
         login = req_json["login"]
         password = req_json["password"]
-        # TODO: Add salt to hash. Now it's only a bit better than cleartext.
-        found = False
-        user = User.objects.filter(password=password,login=login)
+        # Hashing is done server-side, otherwise it has no difference than plaintext.
+        user = User.objects.filter(login=login)
         if user:
-            found = True
-        if not found:
-            return JsonResponse({"status":"err", "id":-1},status=401)
-        resp = JsonResponse({"status": "ok", "login":login,"password":password,"id":user[0].id})
-        resp.set_cookie('token', login, max_age=86400)
-        return resp
+            hash = user[0].password
+            salt = hash.split(":")[1]
+            comp_hash = sha256(password.encode() + salt.encode()).hexdigest() + ':' + salt
+            if hash == comp_hash:
+                resp = JsonResponse({"status": "ok", "login":login,"password":hash,"id":user[0].id})
+                # Maybe, some random hex ID from DB?
+                resp.set_cookie('token', hash, max_age=86400)
+                return resp
+            else:
+                return JsonResponse({"status":"err", "id":-1},status=401)
+        
     else:
         return render(request, 'index.html')
 
@@ -36,6 +43,8 @@ def register(request):
             return JsonResponse({"status":"err"},status=400)
         login = req_json["login"]
         password = req_json["password"]
+        salt = os.urandom(16).hex()
+        hash = sha256(password.encode() + salt.encode()).hexdigest() + ':' + salt
         found = False
         user = User.objects.filter(login=login)
         if user:
@@ -44,10 +53,10 @@ def register(request):
             return JsonResponse({"status":"err", "id":-1},status=403)
         newuser = User.objects.create(
             login=login,
-            password=password
+            password=hash
         )
-        resp = JsonResponse({"status": "ok", "login":login,"password":password,"id":newuser.id})
-        resp.set_cookie('token', login, max_age=86400)
+        resp = JsonResponse({"status": "ok", "login":login,"password":hash,"id":newuser.id})
+        resp.set_cookie('token', hash, max_age=86400)
         return resp
     else:
         return render(request, 'index.html')
