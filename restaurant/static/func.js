@@ -1,9 +1,17 @@
 const auth = (form) => {
     let form_data = new FormData(form)
+    let jdata = {'login':form_data.get('login'), 'password':form_data.get('password')}
     fetch('/login',{
         method: 'POST',
-        body: form_data,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jdata),
     }).then((response) => {
+        if (response.status == 400) {
+            alert("invalid data")
+            return
+        }
         if (response.status == 401) {
             alert("bad auth")
             return
@@ -18,10 +26,18 @@ const reg = (form) => {
         alert("passwords doesn't match")
         return
     }
+    let jdata = {'login':form_data.get('login'), 'password':form_data.get('password')}
     fetch('/register',{
         method: 'POST',
-        body: form_data,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jdata),
     }).then((response) => {
+        if (response.status == 400) {
+            alert("invalid data")
+            return
+        }
         if (response.status == 403) {
             alert("user exists")
             return

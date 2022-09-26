@@ -2,15 +2,20 @@ from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from .models import User
 
+import json
+
 def index(request):
     return render(request, 'index.html')  
 
 def login(request):
-    print(request.POST)
-    if request.POST:
-        login = request.POST["login"]
+    if request.method == "POST":  # All POSTs
+        try:  # Valid JSON
+            req_json = json.loads(request.body)
+        except:
+            return JsonResponse({"status":"err"},status=400)
+        login = req_json["login"]
+        password = req_json["password"]
         # TODO: Add salt to hash. Now it's only a bit better than cleartext.
-        password = request.POST["password"]
         found = False
         user = User.objects.filter(password=password,login=login)
         if user:
@@ -24,9 +29,13 @@ def login(request):
         return render(request, 'index.html')
 
 def register(request):
-    if request.POST:
-        login = request.POST["login"]
-        password = request.POST["password"]
+    if request.method == "POST":
+        try:
+            req_json = json.loads(request.body)
+        except:
+            return JsonResponse({"status":"err"},status=400)
+        login = req_json["login"]
+        password = req_json["password"]
         found = False
         user = User.objects.filter(login=login)
         if user:
