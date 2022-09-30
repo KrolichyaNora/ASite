@@ -29,8 +29,7 @@ def login(request):
                 # Maybe, some random hex ID from DB?
                 resp.set_cookie('token', hash, max_age=86400)
                 return resp
-            else:
-                return JsonResponse({"status":"err", "id":-1},status=401)
+        return JsonResponse({"status":"err", "id":-1},status=401)
         
     else:
         return render(request, 'index.html')
@@ -45,11 +44,8 @@ def register(request):
         password = req_json["password"]
         salt = os.urandom(16).hex()
         hash = sha256(password.encode() + salt.encode()).hexdigest() + ':' + salt
-        found = False
         user = User.objects.filter(login=login)
         if user:
-            found = True
-        if found:
             return JsonResponse({"status":"err", "id":-1},status=403)
         newuser = User.objects.create(
             login=login,
