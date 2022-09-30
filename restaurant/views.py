@@ -25,7 +25,7 @@ def login(request):
             salt = hash.split(":")[1]
             comp_hash = sha256(password.encode() + salt.encode()).hexdigest() + ':' + salt
             if hash == comp_hash:
-                resp = JsonResponse({"status": "ok", "login":login,"password":hash,"id":user[0].id})
+                resp = JsonResponse({"status": "ok", "login":login,"hash":hash,"id":user[0].id})
                 # Maybe, some random hex ID from DB?
                 resp.set_cookie('token', hash, max_age=86400)
                 return resp
@@ -51,7 +51,7 @@ def register(request):
             login=login,
             password=hash
         )
-        resp = JsonResponse({"status": "ok", "login":login,"password":hash,"id":newuser.id})
+        resp = JsonResponse({"status": "ok", "login":login,"hash":hash,"id":newuser.id})
         resp.set_cookie('token', hash, max_age=86400)
         return resp
     else:
